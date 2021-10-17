@@ -9,10 +9,8 @@
 
 static OS_TCB Task1TCB;
 static CPU_STK Task1Stk[512];
-void led_task(void *p_arg);
 static OS_TCB Task2TCB;
 static CPU_STK Task2Stk[512];
-void usart1_task(void *p_arg);
 
 /**
  * @brief The application main task

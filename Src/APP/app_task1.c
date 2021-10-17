@@ -6,7 +6,7 @@
 #include "bsp_led.h"
 
 /**
- * @brief Rainbow lights
+ * @brief Water LEDs
  */
 void led_task(void *p_arg) {
   while (1) {

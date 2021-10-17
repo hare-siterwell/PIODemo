@@ -21,6 +21,8 @@ extern "C" {
   n ? LL_GPIO_SetOutputPin(GREEN_GPIO_Port, GREEN_Pin)                         \
     : LL_GPIO_ResetOutputPin(GREEN_GPIO_Port, GREEN_Pin)
 
+void led_task(void *p_arg);
+
 #ifdef __cplusplus
 }
 #endif

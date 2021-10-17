@@ -21,6 +21,8 @@ struct UsartRx {
 };
 extern struct UsartRx ur1;
 
+void usart1_task(void *p_arg);
+
 void USART_DMA_Enable(void);
 void USART_RxIdleCallback(USART_TypeDef *USARTx);
 void USART_ReEnable(USART_TypeDef *USARTx);
