@@ -22,7 +22,7 @@ struct UsartRx {
 extern struct UsartRx ur1, ur2, ur3;
 
 void USART_Enable(USART_TypeDef *USARTx);
-void USART_RxIdleCallback(USART_TypeDef *USARTx);
+void USART_Callback(USART_TypeDef *USARTx);
 void USART_ReEnable(USART_TypeDef *USARTx);
 void USART_Send(USART_TypeDef *USARTx, u8 *pData, u32 Size);
 

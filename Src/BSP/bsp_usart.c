@@ -47,19 +47,21 @@ void USART_Enable(USART_TypeDef *USARTx) {
 }
 
 /**
- * @brief Rx Transfer IDLE callbacks
+ * @brief USART callbacks
  * @param USARTx Universal Synchronous Asynchronous Receiver Transmitter
  */
-void USART_RxIdleCallback(USART_TypeDef *USARTx) {
+void USART_Callback(USART_TypeDef *USARTx) {
   OS_ERR err;
-  if (USARTx == USART1 && LL_USART_IsActiveFlag_RXNE(USART1)) {
-    ur1.buf[ur1.len++] = LL_USART_ReceiveData8(USART1);
-  } else if (USARTx == USART1 && LL_USART_IsActiveFlag_IDLE(USART1)) {
-    LL_USART_ClearFlag_IDLE(USART1);
-    if (ur1.len) {
-      OSSemPost(&ur1.sta, OS_OPT_POST_1, &err); // Processing data
-    } else {
-      USART_ReEnable(USART1);
+  if (USARTx == USART1) {
+    if (LL_USART_IsActiveFlag_RXNE(USART1)) {
+      ur1.buf[ur1.len++] = LL_USART_ReceiveData8(USART1);
+    } else if (LL_USART_IsActiveFlag_IDLE(USART1)) {
+      LL_USART_ClearFlag_IDLE(USART1);
+      if (ur1.len) {
+        OSSemPost(&ur1.sta, OS_OPT_POST_1, &err); // Processing data
+      } else {
+        USART_ReEnable(USART1);
+      }
     }
   } else if (USARTx == USART2 && LL_USART_IsActiveFlag_IDLE(USART2)) {
     LL_USART_ClearFlag_IDLE(USART2);
