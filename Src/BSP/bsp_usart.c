@@ -57,30 +57,21 @@ void USART_Callback(USART_TypeDef *USARTx) {
       ur1.buf[ur1.len++] = LL_USART_ReceiveData8(USART1);
     } else if (LL_USART_IsActiveFlag_IDLE(USART1)) {
       LL_USART_ClearFlag_IDLE(USART1);
-      if (ur1.len) {
-        OSSemPost(&ur1.sta, OS_OPT_POST_1, &err); // Processing data
-      } else {
-        USART_ReEnable(USART1);
-      }
+      ur1.len ? OSSemPost(&ur1.sta, OS_OPT_POST_1, &err) // Processing data
+              : USART_ReEnable(USART1);
     }
   } else if (USARTx == USART2 && LL_USART_IsActiveFlag_IDLE(USART2)) {
     LL_USART_ClearFlag_IDLE(USART2);
     LL_DMA_DisableChannel(DMA1, LL_DMA_CHANNEL_6);
     ur2.len = USART_RXSIZE - LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_6);
-    if (ur2.len) {
-      OSSemPost(&ur2.sta, OS_OPT_POST_1, &err); // Processing data
-    } else {
-      USART_ReEnable(USART2);
-    }
+    ur2.len ? OSSemPost(&ur2.sta, OS_OPT_POST_1, &err) // Processing data
+            : USART_ReEnable(USART2);
   } else if (USARTx == USART3 && LL_USART_IsActiveFlag_IDLE(USART3)) {
     LL_USART_ClearFlag_IDLE(USART3);
     LL_DMA_DisableChannel(DMA1, LL_DMA_CHANNEL_3);
     ur3.len = USART_RXSIZE - LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_3);
-    if (ur3.len) {
-      OSSemPost(&ur3.sta, OS_OPT_POST_1, &err); // Processing data
-    } else {
-      USART_ReEnable(USART3);
-    }
+    ur3.len ? OSSemPost(&ur3.sta, OS_OPT_POST_1, &err) // Processing data
+            : USART_ReEnable(USART3);
   }
 }
 
@@ -107,7 +98,6 @@ void USART_ReEnable(USART_TypeDef *USARTx) {
 
 /**
  * @brief Sends an amount of data in DMA mode
- * @note Pay attention to bdma access address permissions
  * @param USARTx Universal Synchronous Asynchronous Receiver Transmitter
  * @param pData Pointer to data buffer
  * @param Size Amount of data elements
