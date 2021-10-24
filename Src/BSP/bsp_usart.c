@@ -53,12 +53,13 @@ void USART_Enable(USART_TypeDef *USARTx) {
 void USART_Callback(USART_TypeDef *USARTx) {
   OS_ERR err;
   if (USARTx == USART1) {
-    if (LL_USART_IsActiveFlag_RXNE(USART1)) {
-      ur1.buf[ur1.len++] = LL_USART_ReceiveData8(USART1);
-    } else if (LL_USART_IsActiveFlag_IDLE(USART1)) {
+    if (LL_USART_IsActiveFlag_IDLE(USART1) || ur1.len >= USART_RXSIZE) {
       LL_USART_ClearFlag_IDLE(USART1);
+      LL_USART_DisableDirectionRx(USART1);
       ur1.len ? OSSemPost(&ur1.sta, OS_OPT_POST_1, &err) // Processing data
               : USART_ReEnable(USART1);
+    } else if (LL_USART_IsActiveFlag_RXNE(USART1)) {
+      ur1.buf[ur1.len++] = LL_USART_ReceiveData8(USART1);
     }
   } else if (USARTx == USART2 && LL_USART_IsActiveFlag_IDLE(USART2)) {
     LL_USART_ClearFlag_IDLE(USART2);
@@ -83,6 +84,7 @@ void USART_ReEnable(USART_TypeDef *USARTx) {
   if (USARTx == USART1) {
     memset(ur1.buf, 0, ur1.len);
     ur1.len = 0;
+    LL_USART_EnableDirectionRx(USART1);
   } else if (USARTx == USART2) {
     memset(ur2.buf, 0, ur2.len);
     ur2.len = 0;
