@@ -1,6 +1,6 @@
 /**
  * @file bsp_led.c
- * @brief LED
+ * @brief Manage LEDs
  */
 
 #include "bsp_led.h"

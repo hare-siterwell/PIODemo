@@ -11,7 +11,7 @@
 extern "C" {
 #endif
 
-#include "includes.h"
+#include "bsp.h"
 
 #define LED_R(n)                                                               \
   n ? LL_GPIO_SetOutputPin(RED_GPIO_Port, RED_Pin)                             \
@@ -21,7 +21,9 @@ extern "C" {
   n ? LL_GPIO_SetOutputPin(GREEN_GPIO_Port, GREEN_Pin)                         \
     : LL_GPIO_ResetOutputPin(GREEN_GPIO_Port, GREEN_Pin)
 
-void led_task(void *p_arg);
+#define LED_B(n)                                                               \
+  n ? LL_GPIO_SetOutputPin(BLUE_GPIO_Port, BLUE_Pin)                           \
+    : LL_GPIO_ResetOutputPin(BLUE_GPIO_Port, BLUE_Pin)
 
 #ifdef __cplusplus
 }

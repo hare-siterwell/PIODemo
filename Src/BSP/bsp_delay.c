@@ -1,6 +1,6 @@
 /**
  * @file bsp_delay.c
- * @brief delays
+ * @brief Manage delays
  */
 
 #include "bsp_delay.h"
@@ -36,3 +36,29 @@ void delay_ms(u32 nms) {
   OS_ERR err;
   OSTimeDly(nms, OS_OPT_TIME_PERIODIC, &err);
 }
+
+/**
+ * @brief Redefine HAL Tick
+ */
+uint32_t HAL_GetTick(void) {
+  static u32 ticks = 0;
+  OS_ERR err;
+  if (OSRunning == OS_STATE_OS_RUNNING)
+    return OSTimeGet(&err);
+  for (u32 i = SystemCoreClock >> 14; i; i--) {
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+  }
+  return ++ticks;
+}
+void HAL_Delay(uint32_t Delay) { delay_ms(Delay); }

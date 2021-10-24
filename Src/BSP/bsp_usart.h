@@ -11,19 +11,17 @@
 extern "C" {
 #endif
 
-#include "includes.h"
+#include "bsp.h"
 
-#define USART_RXSIZE 1024u
+#define USART_RXSIZE 1024
 struct UsartRx {
   OS_SEM sta;           // Received flag
   u16 len;              // Received length
   u8 buf[USART_RXSIZE]; // Received buffer
 };
-extern struct UsartRx ur1;
+extern struct UsartRx ur1, ur2, ur3;
 
-void usart1_task(void *p_arg);
-
-void USART_DMA_Enable(void);
+void USART_Enable(USART_TypeDef *USARTx);
 void USART_RxIdleCallback(USART_TypeDef *USARTx);
 void USART_ReEnable(USART_TypeDef *USARTx);
 void USART_Send(USART_TypeDef *USARTx, u8 *pData, u32 Size);

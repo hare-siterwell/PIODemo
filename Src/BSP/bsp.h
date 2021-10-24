@@ -1,17 +1,18 @@
 /**
- * @file includes.h
+ * @file bsp.h
  * @brief Header summary
  */
 
-#ifndef __INCLUDES_H
-#define __INCLUDES_H
+#ifndef __BSP_H
+#define __BSP_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "main.h"
 #include "os.h"
+
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -58,4 +59,4 @@ void delay_ms(u32 nms);
 }
 #endif
 
-#endif /* __INCLUDES_H */
+#endif /* __BSP_H */

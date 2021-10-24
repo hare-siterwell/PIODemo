@@ -1,5 +1,5 @@
 /**
- * @file app_task2.c
+ * @file task_usart.c
  * @brief Application task body
  */
 
@@ -8,14 +8,14 @@
 /**
  * @brief USART1 communication with PC
  */
-void usart1_task(void *p_arg) {
+void task_usart1(void *p_arg) {
   OS_ERR err;
-  OSSemCreate(&ur1.sta, "ur1 sta", 0, &err);
-  printf("USART1 Task running!\r\n");
+  USART_Enable(USART1);
+  printf("Task USART1 Running!\r\n");
   while (1) {
     OSSemPend(&ur1.sta, 0, OS_OPT_PEND_BLOCKING, 0, &err);
 
-    printf("%s\r\nData Size:%d\r\n", ur1.buf, ur1.len);
+    printf("%s\r\n", ur1.buf);
 
     USART_ReEnable(USART1);
   }

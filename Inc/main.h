@@ -73,10 +73,6 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define GREEN_Pin LL_GPIO_PIN_5
 #define GREEN_GPIO_Port GPIOE
-#define PC_USART_TX_Pin LL_GPIO_PIN_9
-#define PC_USART_TX_GPIO_Port GPIOA
-#define PC_USART_RX_Pin LL_GPIO_PIN_10
-#define PC_USART_RX_GPIO_Port GPIOA
 #define RED_Pin LL_GPIO_PIN_5
 #define RED_GPIO_Port GPIOB
 #ifndef NVIC_PRIORITYGROUP_0
