@@ -61,4 +61,8 @@ uint32_t HAL_GetTick(void) {
   }
   return ++ticks;
 }
+
+/**
+ * @brief Redefine HAL Delay
+ */
 void HAL_Delay(uint32_t Delay) { delay_ms(Delay); }

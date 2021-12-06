@@ -10,6 +10,7 @@
 extern "C" {
 #endif
 
+/* RTOS */
 #include "os.h"
 
 #include "main.h"
@@ -18,8 +19,6 @@ extern "C" {
 #include <string.h>
 
 /* Define commonly used data type short keywords */
-enum bool { FALSE, TRUE };
-
 typedef signed int s32;
 typedef signed short s16;
 typedef signed char s8;

@@ -119,7 +119,6 @@ void USART_Send(USART_TypeDef *USARTx, u8 *pData, u32 Size) {
 }
 
 /* Support "printf()" */
-#ifdef __GNUC__
 int _write(int fd, char *pBuffer, int size) {
   for (u32 i = 0; i < size; i++) {
     while (!LL_USART_IsActiveFlag_TXE(USART1))
@@ -128,7 +127,6 @@ int _write(int fd, char *pBuffer, int size) {
   }
   return size;
 }
-#else
 FILE __stdout;
 void _sys_exit(int x) {}
 int fputc(int ch, FILE *f) {
@@ -137,4 +135,3 @@ int fputc(int ch, FILE *f) {
     ;
   return ch;
 }
-#endif
